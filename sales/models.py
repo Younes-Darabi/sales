@@ -25,11 +25,16 @@ class Bill(models.Model):
     total_amount = models.FloatField()
     is_paid = models.BooleanField(default=False)
 
+    def __str__(self):
+        return f"{self.total_amount}"
 
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     product = models.ManyToManyField(Product, through="Producttype")
     bill = models.OneToOneField(Bill, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.customer} {self.product}"
 
 
 class Producttype(models.Model):
@@ -39,7 +44,3 @@ class Producttype(models.Model):
 
     def __str__(self):
         return f"{self.type_name}"
-
-    def save(self, *args, **kwaegs):
-        print("save")
-        super.save(*args, **kwaegs)

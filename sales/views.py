@@ -1,10 +1,7 @@
-from django.http import JsonResponse
 from django.shortcuts import render
-from django.views import View
+from django.views.generic.list import ListView
 from sales.models import Customer
 
-class Customer_View(View):
-
-    def get(self, request):
-        ChatDB = list(Customer.objects.values())
-        return JsonResponse(ChatDB, safe=False)
+class CustomerListView(ListView):
+    model = Customer
+    template_name = "sales/list.html"
